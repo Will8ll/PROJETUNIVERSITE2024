@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to UEPME</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{% static '/index/img/favicon﹖v=3.ico'%}"
+    />
+  </head>
+  <body>
+    <h2>Welcome to UEPME, {{ user.first_name }}!</h2>
+    <p>
+      Thank you for visiting our website. Please click the link below to
+      activate your account:
+    </p>
+    <a href="{{ activation_link }}">Activate Account</a>
+    <p>If you didn't request this, please ignore this email.</p>
+    <p>Thank you in behalf of the Team</p>
+    <p>#TEAM UEPME</p>
+  </body>
+</html>
