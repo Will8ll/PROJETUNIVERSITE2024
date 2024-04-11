@@ -1,1 +1,1 @@
-web: gunicorn P_UEPME.wsgi --log-file -
+web: gunicorn UEPME.wsgi --log-file -
