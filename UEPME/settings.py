@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import django_heroku
-import dj_database_url
 from . info import *
 
 
@@ -36,9 +35,9 @@ DEFAULT_FROM_EMAIL = 'info.uspme@gmail.com'
 SECRET_KEY = 'django-insecure-m&0=99-o97xvdlbc@785xbg=17*ncdapwn5_f7sso6b@6ft%cl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['uepme.com', 'P_UEPME.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
