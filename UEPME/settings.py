@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
 import dj_database_url
 from . info import *
 
@@ -35,7 +36,7 @@ DEFAULT_FROM_EMAIL = 'info.uspme@gmail.com'
 SECRET_KEY = 'django-insecure-m&0=99-o97xvdlbc@785xbg=17*ncdapwn5_f7sso6b@6ft%cl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['uepme.com', 'P_UEPME.herokuapp.com', 'localhost']
 
@@ -133,8 +134,10 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'authentification/static'),
 ]
+STATIC_ROOT=(os.path.join(BASE_DIR, 'static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+django_heroku.settings(locals())
