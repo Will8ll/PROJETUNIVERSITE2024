@@ -15,6 +15,7 @@ import os
 import django_heroku
 from . info import *
 import dj_database_url
+from google_auth_oauthlib.flow import Flow
 
 
 
@@ -27,6 +28,25 @@ EMAIL_HOST_USER = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD
 EMAIL_PORT = EMAIL_PORT
 DEFAULT_FROM_EMAIL = 'info.uspme@gmail.com'
+
+# Retrieve Google OAuth client ID and client secret from environment variables
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
+# Use the retrieved credentials in your Google Sign-In configuration
+flow = Flow.from_client_config({
+    'web': {
+        'client_id': GOOGLE_CLIENT_ID,
+        'client_secret': GOOGLE_CLIENT_SECRET,
+        'redirect_uris': ['https://www.uepme.com/callback'],
+        'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
+        'token_uri': 'https://accounts.google.com/o/oauth2/token',
+        'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
+        'userinfo_email': 'https://www.googleapis.com/auth/userinfo.email',
+        'userinfo_profile': 'https://www.googleapis.com/auth/userinfo.profile',
+        'scope': ['openid', 'email', 'profile'],
+    }
+}, scopes=['openid', 'email', 'profile'])
 
 
 # Quick-start development settings - unsuitable for production
