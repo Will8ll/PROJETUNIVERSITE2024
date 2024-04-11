@@ -106,12 +106,11 @@ def signup(request) :
         activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
 
         # Send welcome email with activation link
-        # Send welcome email with activation link
         send_mail(
         'Welcome to UEPME',
-        'Please confirm your email account with this link:\n{}'.format(activation_link),
+        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
         'info.uspme@gmail.com',
-        [myuser.email],
+        ['info.uspme@gmail.com'],
         fail_silently=False,
         )
         #subject = "Welcome to UEPME\n"
