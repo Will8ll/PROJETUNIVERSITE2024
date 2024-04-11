@@ -2,3 +2,4 @@ Django==4.1.1
 django_heroku==0.3.1
 protobuf==5.26.1
 tokens==0.0.3
+gunicorn==21.2.0
