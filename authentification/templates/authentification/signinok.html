@@ -29,7 +29,7 @@
     <!-- ashley scss -->
     <link rel="stylesheet" href="{% static '/index/css/style.css'%}" />
     <!-- page name -->
-    <title>Connection | UEPME</title>
+    <title>Connection Reussie Avec Succes | UEPME</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -56,8 +56,8 @@
       <div class="mil-preloader">
         <div class="mil-preloader-animation">
           <div class="mil-pos-abs mil-animation-1">
-            <p class="mil-h3 mil-muted mil-thin">Message</p>
-            <p class="mil-h3 mil-muted">Envoye</p>
+            <p class="mil-h3 mil-muted mil-thin">Connection</p>
+            <p class="mil-h3 mil-muted">Reussie</p>
             <p class="mil-h3 mil-muted mil-thin">Avec Succes</p>
           </div>
         </div>
@@ -73,131 +73,130 @@
         </div>
       </div>
 
-     <!-- menu -->
-     <div class="mil-menu-frame">
-      <!-- frame clone -->
-      <div class="mil-frame-top">
-        <a href="{% url 'home' %}" class="mil-logo">UE<br />PME.</a>
-        <div class="mil-menu-btn">
-          <span></span>
-        </div>
+  <!-- menu -->
+  <div class="mil-menu-frame">
+    <!-- frame clone -->
+    <div class="mil-frame-top">
+      <a href="{% url 'home' %}" class="mil-logo">UE<br />PME.</a>
+      <div class="mil-menu-btn">
+        <span></span>
       </div>
-      <!-- frame clone end --> 
-      <div class="container">
-        <div class="mil-menu-content">
-          <div class="row">
-            <div class="col-xl-5"> 
-              <nav class="mil-main-menu" id="swupMenu">
-                <ul>
-                  {% if user.is_authenticated %}
-                  <li class="mil-has-children ">
-                    <a href="{% url 'signout' %}">Deconnexion</a>
-                    <!-- <ul>
-                      <li><a href="index.html">Landing page</a></li>
-                      <li><a href="home-2.html">Personal</a></li>
-                      <li><a href="portfolio-3.html">Portfolio slider</a></li>
-                    </ul>-->
-                  </li>
-                  {% else %}
-                  <li class="mil-has-children ">
-                    <a href="{% url 'signin' %}">Connection</a>
-                    <!-- <ul>
-                      <li><a href="index.html">Landing page</a></li>
-                      <li><a href="home-2.html">Personal</a></li>
-                      <li><a href="portfolio-3.html">Portfolio slider</a></li>
-                    </ul>-->
-                  </li>
-                  {% endif %}
-                  <li class="mil-has-children">
-                    <a href="{% url 'portfolio' %}">Notre gallerie</a>
-                  </li>
-                  <li class="mil-has-children">
-                    <a href="{% url 'service' %}">Nos Objectifs</a>
-                  </li>
-                  <li class="mil-has-children">
-                    <a href="{% url 'article' %}">Nos Articles</a>
-                  </li>
-                  <li class="mil-has-children">
-                    <a href="{% url 'contact' %}">Contactez nous</a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <div class="col-xl-7">
-              <div class="mil-menu-right-frame">
-                <div class="mil-animation-in">
-                  <div class="mil-animation-frame">
-                    <div
-                      class="mil-animation mil-position-1 mil-scale"
-                      data-value-1="2"
-                      data-value-2="2"
-                    ></div>
+    </div>
+    <!-- frame clone end --> 
+    <div class="container">
+      <div class="mil-menu-content">
+        <div class="row">
+          <div class="col-xl-5"> 
+            <nav class="mil-main-menu" id="swupMenu">
+              <ul>
+                {% if user.is_authenticated %}
+                <li class="mil-has-children ">
+                  <a href="{% url 'signout' %}">Deconnexion</a>
+                  <!-- <ul>
+                    <li><a href="index.html">Landing page</a></li>
+                    <li><a href="home-2.html">Personal</a></li>
+                    <li><a href="portfolio-3.html">Portfolio slider</a></li>
+                  </ul>-->
+                </li>
+                {% else %}
+                <li class="mil-has-children ">
+                  <a href="{% url 'signin' %}">Connection</a>
+                  <!-- <ul>
+                    <li><a href="index.html">Landing page</a></li>
+                    <li><a href="home-2.html">Personal</a></li>
+                    <li><a href="portfolio-3.html">Portfolio slider</a></li>
+                  </ul>-->
+                </li>
+                {% endif %}
+                <li class="mil-has-children">
+                  <a href="{% url 'portfolio' %}">Notre gallerie</a>
+                </li>
+                <li class="mil-has-children">
+                  <a href="{% url 'service' %}">Nos Objectifs</a>
+                </li>
+                <li class="mil-has-children">
+                  <a href="{% url 'article' %}">Nos Articles</a>
+                </li>
+                <li class="mil-has-children">
+                  <a href="{% url 'contact' %}">Contactez nous</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-xl-7">
+            <div class="mil-menu-right-frame">
+              <div class="mil-animation-in">
+                <div class="mil-animation-frame">
+                  <div
+                    class="mil-animation mil-position-1 mil-scale"
+                    data-value-1="2"
+                    data-value-2="2"
+                  ></div>
+                </div>
+              </div>
+              <div class="mil-menu-right">
+                <div class="row">
+                  <div class="col-lg-8 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">Articles recents</h6>
+
+                    <ul class="mil-menu-list">
+                      <li>
+                        <a href="{% url 'publication1' %}" class="mil-light-soft"
+                          >Chronique du Lundi – 1ère édition de l’université d’été des PME UEPME : Faire du développement des PME la priorité n° 1 des pouvoirs publics dans le contexte post-Covid</a
+                        >
+                      </li>
+                      <li>
+                        <a href="{% url 'publication2' %}" class="mil-light-soft"
+                          >Côte d’Ivoire :1ère édition de L’université d’Été des PME 2022</a
+                        >
+                      </li>
+                      <li>
+                        <a href="{% url 'publication3' %}" class="mil-light-soft"
+                          >1re édition de l’Université d’été des PME / Pr Justin Koffi N’Goran Directeur général de l’ARRE "L'avenir est aux PME plus souples, plus réactives"</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-lg-4 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">Liens utiles</h6>
+
+                    <ul class="mil-menu-list">
+                      <li>
+                        <a href="#." class="mil-light-soft"
+                          >politique de confidentialité</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#." class="mil-light-soft"
+                          >Termes et conditions</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#." class="mil-light-soft"
+                          >Politique en matière de cookies</a
+                        >
+                      </li>
+                    </ul>
                   </div>
                 </div>
-                <div class="mil-menu-right">
-                  <div class="row">
-                    <div class="col-lg-8 mil-mb-60">
-                      <h6 class="mil-muted mil-mb-30">Articles recents</h6>
+                <div class="mil-divider mil-mb-60"></div>
+                <div class="row justify-content-between">
+                  <div class="col-lg-4 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">
+                      <a href=" {% url 'signup' %}">Inscris-toi maintenant!</a>
+                    </h6>
 
-                      <ul class="mil-menu-list">
-                        <li>
-                          <a href="{% url 'publication1' %}" class="mil-light-soft"
-                            >Chronique du Lundi – 1ère édition de l’université d’été des PME UEPME : Faire du développement des PME la priorité n° 1 des pouvoirs publics dans le contexte post-Covid</a
-                          >
-                        </li>
-                        <li>
-                          <a href="{% url 'publication2' %}" class="mil-light-soft"
-                            >Côte d’Ivoire :1ère édition de L’université d’Été des PME 2022</a
-                          >
-                        </li>
-                        <li>
-                          <a href="{% url 'publication3' %}" class="mil-light-soft"
-                            >1re édition de l’Université d’été des PME / Pr Justin Koffi N’Goran Directeur général de l’ARRE "L'avenir est aux PME plus souples, plus réactives"</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-lg-4 mil-mb-60">
-                      <h6 class="mil-muted mil-mb-30">Liens utiles</h6>
-
-                      <ul class="mil-menu-list">
-                        <li>
-                          <a href="#." class="mil-light-soft"
-                            >politique de confidentialité</a
-                          >
-                        </li>
-                        <li>
-                          <a href="#." class="mil-light-soft"
-                            >Termes et conditions</a
-                          >
-                        </li>
-                        <li>
-                          <a href="#." class="mil-light-soft"
-                            >Politique en matière de cookies</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
+                    <p class="mil-light-soft mil-up">
+                      <span class="mil-no-wrap"></span>
+                    </p>
                   </div>
-                  <div class="mil-divider mil-mb-60"></div>
-                  <div class="row justify-content-between">
-                    <div class="col-lg-4 mil-mb-60">
-                      <h6 class="mil-muted mil-mb-30">
-                        <a href=" {% url 'signup' %}">Inscris-toi maintenant!</a>
-                      </h6>
+                  <div class="col-lg-4 mil-mb-60">
+                    <h6 class="mil-muted mil-mb-30">Cote d'ivoire</h6>
 
-                      <p class="mil-light-soft mil-up">
-                        <span class="mil-no-wrap"></span>
-                      </p>
-                    </div>
-                    <div class="col-lg-4 mil-mb-60">
-                      <h6 class="mil-muted mil-mb-30">Cote d'ivoire</h6>
-
-                      <p class="mil-light-soft">
-                        Abidjan Cocody,
-                        <span class="mil-no-wrap">+225 0700157791</span>
-                      </p>
-                    </div>
+                    <p class="mil-light-soft">
+                      Abidjan Cocody,
+                      <span class="mil-no-wrap">+225 0700157791</span>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -206,7 +205,8 @@
         </div>
       </div>
     </div>
-    <!-- menu -->
+  </div>
+  <!-- menu -->
 
       <!-- curtain -->
       <div class="mil-curtain"></div>
@@ -236,6 +236,7 @@
           <div class="mil-inner-banner mil-p-0-120"></div>
           <!-- frame end -->
           <!-- contact form -->
+          
           
           <!-- contact form end -->
 
@@ -425,7 +426,7 @@
     <script>
       // Redirect to another page after 5 seconds (5000 milliseconds)
       setTimeout(function() {
-          window.location.href = 'signin '; // Replace 'http://example.com/' with the URL you want to redirect to
+          window.location.href = 'home'; // Replace 'http://example.com/' with the URL you want to redirect to
       }, 5000); // Change 5000 to the desired delay in milliseconds
   </script>
   </body>

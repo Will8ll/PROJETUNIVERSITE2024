@@ -19,6 +19,7 @@ from django.urls import reverse
 from google.auth.transport.requests import Request
 import os
 from django.core.exceptions import ValidationError
+from google_auth_oauthlib.flow import Flow
 
 
 
@@ -39,11 +40,11 @@ def signin(request) :
         if user is not None:
             login(request,user)
             fname = user.first_name
-            return render (request,"authentification/index.html" , {'fname': fname})
+            return render (request,"authentification/signinok.html" , {'fname': fname})
         
         else :
             messages.error(request,"bad credential")
-            return redirect('signup')
+            return redirect('signinf')
 
 
     return render(request,'authentification/signin.html')
@@ -61,23 +62,23 @@ def signup(request) :
 
         if User.objects.filter(username=username):
             messages.error(request, "Username alreay exist! Please try some other username")
-            return redirect ('home')
+            return redirect ('signupf')
         
         if User.objects.filter(email=email):
             messages.error(request, "email alreay registered! Please try some other username")
-            return redirect ('home')  
+            return redirect ('signupf')  
         
         if len(username)>15:
             messages.error(request, "username must be under 10 character")
-            return redirect ('home')  
+            return redirect ('signupf')  
         
         if pass1 != pass2 :
             messages.error(request, "password did not match")
-            return redirect ('home') 
+            return redirect ('signupf') 
 
         if not username.isalnum() :
             messages.error(request, "username should be alphanumeric")
-            return redirect ('home')  
+            return redirect ('signupf')  
         
         myuser = User.objects.create_user(username,email,pass1)
         myuser.first_name=fname
@@ -104,23 +105,23 @@ def signup(request) :
         token = default_token_generator.make_token(myuser)
         uid = urlsafe_base64_encode(force_bytes(myuser.pk))
         activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
-
+        
         # Send welcome email with activation link
-        send_mail(
-        'Welcome to UEPME',
-        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
-        'info.uspme@gmail.com',
-        [myuser.email],
-        fail_silently=False,
-        )
-        #subject = "Welcome to UEPME\n"
-        #message = render_to_string('authentification/welcome_email.html', {
-         #   'user': myuser,
-          #  'activation_link': activation_link,
-        #})
-        #from_email = settings.EMAIL_HOST_USER
-        #to_list = [myuser.email]
-        #send_mail(subject, message, from_email, to_list, fail_silently=True)
+        #send_mail(
+        #'Welcome to UEPME',
+        #f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
+        #'info.uspme@gmail.com',
+        #[myuser.email],
+        #fail_silently=False,
+        #)
+        subject = "Welcome to UEPME\n"
+        message = render_to_string('authentification/welcome_email.html', {
+            'user': myuser,
+            'activation_link': activation_link,
+        })
+        from_email = settings.EMAIL_HOST_USER
+        to_list = [myuser.email]
+        send_mail(subject, message, from_email, to_list, fail_silently=True)
 
         return redirect('signupok')
     
@@ -151,6 +152,14 @@ def signout(request) :
 
 def signupok(request):
     return render(request, 'authentification/signupok.html')
+def signinok(request):
+    return render(request, 'authentification/signinok.html')
+def signupf(request):
+    return render(request, 'authentification/signupf.html')
+def signinf(request):
+    return render(request, 'authentification/signinf.html')
+
+
 
 def team(request):
     return render(request, 'authentification/team.html')
@@ -268,3 +277,64 @@ def publication6(request):
     return render(request, 'authentification/publication6.html')
 
 
+def google_signin(request):
+    google_auth_url = reverse('google-authenticate')
+    return redirect(google_auth_url)
+
+def google_authenticate(request):
+    flow = Flow.from_client_secrets_file(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'client_secret.json'),
+        scopes=['openid', 'email', 'profile']
+    )
+    flow.redirect_uri = 'http://www.uepme.com/auth/google/callback'
+    authorization_url, state = flow.authorization_url(
+        access_type='offline',
+        include_granted_scopes='true'
+    )
+    request.session['oauth_state'] = state
+    return redirect(authorization_url)
+
+def google_callback(request):
+    state = request.session.get('oauth_state')
+    flow = Flow.from_client_secrets_file(
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'client.json'),
+        scopes=['openid', 'email', 'profile'],
+        state=state
+    )
+    flow.redirect_uri = 'http://www.uepme.com/auth/google/callback'
+    authorization_response = request.build_absolute_uri()
+    flow.fetch_token(authorization_response=authorization_response)
+
+    # Get user info
+    credentials = flow.credentials
+    request.session['credentials'] = credentials_to_dict(credentials)
+    userinfo_endpoint = 'https://openidconnect.googleapis.com/v1/userinfo'
+    userinfo = request.get(userinfo_endpoint, headers={'Authorization': f'Bearer {credentials.token}'}).json()
+
+    # Check if user already exists
+    user, created = User.objects.get_or_create(username=userinfo.get('email'), email=userinfo.get('email'))
+    if created:
+        # Set other user attributes if needed
+        user.first_name = userinfo.get('given_name')
+        user.last_name = userinfo.get('family_name')
+        user.save()
+
+    # Log the user in
+    from django.contrib.auth import authenticate, login
+    user = authenticate(request, username=user.username, password=userinfo.get('sub'))
+    if user is not None:
+        login(request, user)
+        return redirect('signinok')
+    else:
+        # Handle authentication failure
+        return redirect('home')
+
+def credentials_to_dict(credentials):
+    return {
+        'token': credentials.token,
+        'refresh_token': credentials.refresh_token,
+        'token_uri': credentials.token_uri,
+        'client_id': credentials.client_id,
+        'client_secret': credentials.client_secret,
+        'scopes': credentials.scopes
+    }

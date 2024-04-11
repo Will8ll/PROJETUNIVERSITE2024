@@ -4,13 +4,17 @@ from . import views
 from django.views.generic import RedirectView
 from django.conf.urls import handler404, handler500, handler403, handler400
 from django.shortcuts import redirect
+from google_auth_oauthlib.flow import Flow
 
 urlpatterns = [
     path('', views.home , name="home"),
     path('signup',views.signup , name="signup"),
-    path('signin', views.signin , name="signin"),
-    path('signout', views.signout , name="signout"),
     path('signupok', views.signupok , name="signupok"),
+    path('signupf', views.signupok , name="signupf"),
+    path('signin', views.signin , name="signin"),
+    path('signinok', views.signinok , name="signinok"),
+    path('signinf', views.signinok , name="signinf"),
+    path('signout', views.signout , name="signout"),
     path('thankyou', views.thankyou , name="thankyou"),
     path('contact', views.contact , name="contact"),
     path('team', views.team , name="team"),
@@ -38,6 +42,9 @@ urlpatterns = [
     path('publication6', views.publication6, name='publication6'),
     path('activate/<str:uidb64>/<str:token>/', views.activate, name='activate'),
 
+    path('signin/google/', views.google_signin, name='google-signin'),
+    path('auth/google/', views.google_authenticate, name='google-authenticate'),
+    path('auth/google/callback', views.google_callback, name='google-callback'),
     
 
 
