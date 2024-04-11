@@ -24,7 +24,6 @@ Django==4.1.1
 django-extensions==3.2.3
 docopt==0.6.2
 earthengine-api==0.1.393
-ed25519==1.4
 entrypoints==0.4
 executing==0.8.3
 fastjsonschema==2.15.3
