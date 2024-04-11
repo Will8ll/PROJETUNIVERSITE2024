@@ -88,16 +88,13 @@ def signup(request) :
 
         #Welcome email
         send_mail(
-        'Welcome to UEPME \n',
-        'Hello '+ myuser.first_name + '!! \n'+'Welcome to UEPME !! \n ',
-        'Thank you for visiting our website \n ',
-        'Please confirm your email account with this link\n ',
-        'Thank you in behalf of the Team\n',
-        '#TEAM UEPME',
+        'Welcome to UEPME',
+        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
         'info.uspme@gmail.com',
         ['info.uspme@gmail.com'],
         fail_silently=False,
         )
+
         #subject = "Welcome to UEPME \n"
         #message = "Hello "+ myuser.first_name + "!! \n"+"Welcome to UEPME !! \n Thank you for visiting our website \n Please confirm your email account with this link\n Thank you in behalf of the Team\n#TEAM UEPME"
         #from_email = settings.EMAIL_HOST_USER
@@ -109,17 +106,12 @@ def signup(request) :
         activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
 
         # Send welcome email with activation link
+        # Send welcome email with activation link
         send_mail(
-        'Welcome to UEPME \n',
-        'Please confirm your email account with this link\n ',
-        render_to_string('authentification/welcome_email.html', {
-            'user': myuser,
-            'activation_link': activation_link,
-        }),
-        'Thank you in behalf of the Team\n',
-        '#TEAM UEPME',
+        'Welcome to UEPME',
+        'Please confirm your email account with this link:\n{}'.format(activation_link),
         'info.uspme@gmail.com',
-        ['recipient@example.com'],
+        [myuser.email],
         fail_silently=False,
         )
         #subject = "Welcome to UEPME\n"
@@ -232,9 +224,7 @@ def subscribe(request):
             form.save()
             # Send confirmation email
             send_mail(
-                'Bienvenue dans notre Newsletter',
-                'Merci de souscrire a notre newsletter.',
-                '#TEAM UEPME',
+                f'Bienvenue dans notre Newsletter \n Merci de souscrire a notre newsletter.\n#TEAM UEPME',
                 'info.uspme@gmail.com',  # Sender's email address
                 [form.cleaned_data['email']],  # Subscriber's email address
                 fail_silently=False,
