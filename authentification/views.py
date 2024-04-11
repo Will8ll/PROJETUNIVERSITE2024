@@ -282,26 +282,60 @@ def google_signin(request):
     return redirect(google_auth_url)
 
 def google_authenticate(request):
-    flow = Flow.from_client_secrets_file(
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'client_secret.json'),
+    # Get the Google OAuth client ID from environment variables
+    GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
+    flow = Flow.from_client_config({
+    'web': {
+        'client_id': GOOGLE_CLIENT_ID,
+        'client_secret': GOOGLE_CLIENT_SECRET,
+        'redirect_uris': ['https://www.uepme.com/callback'],
+        'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
+        'token_uri': 'https://accounts.google.com/o/oauth2/token',
+        'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
+        'userinfo_email': 'https://www.googleapis.com/auth/userinfo.email',
+        'userinfo_profile': 'https://www.googleapis.com/auth/userinfo.profile',
+        'scope': ['openid', 'email', 'profile'],
+    }
+    },
         scopes=['openid', 'email', 'profile']
     )
-    flow.redirect_uri = 'http://www.uepme.com/auth/google/callback'
+
     authorization_url, state = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true'
     )
+
     request.session['oauth_state'] = state
     return redirect(authorization_url)
 
 def google_callback(request):
     state = request.session.get('oauth_state')
-    flow = Flow.from_client_secrets_file(
-        os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',  'client.json'),
+    
+    # Get the Google OAuth client ID and client secret from environment variables
+    GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
+
+    flow = Flow.from_client_config(
+        {
+            'web': {
+                'client_id': GOOGLE_CLIENT_ID,
+                'client_secret': GOOGLE_CLIENT_SECRET,
+                'redirect_uris': ['https://www.uepme.com/auth/google/callback'],
+                'auth_uri': 'https://accounts.google.com/o/oauth2/auth',
+                'token_uri': 'https://accounts.google.com/o/oauth2/token',
+                'auth_provider_x509_cert_url': 'https://www.googleapis.com/oauth2/v1/certs',
+                'userinfo_email': 'https://www.googleapis.com/auth/userinfo.email',
+                'userinfo_profile': 'https://www.googleapis.com/auth/userinfo.profile',
+                'scope': ['openid', 'email', 'profile'],
+            }
+        },
         scopes=['openid', 'email', 'profile'],
         state=state
     )
-    flow.redirect_uri = 'http://www.uepme.com/auth/google/callback'
+
+    flow.redirect_uri = 'https://www.uepme.com/auth/google/callback'
     authorization_response = request.build_absolute_uri()
     flow.fetch_token(authorization_response=authorization_response)
 
@@ -328,6 +362,7 @@ def google_callback(request):
     else:
         # Handle authentication failure
         return redirect('home')
+
 
 def credentials_to_dict(credentials):
     return {
