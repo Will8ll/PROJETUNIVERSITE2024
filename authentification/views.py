@@ -91,7 +91,7 @@ def signup(request) :
         'Welcome to UEPME',
         f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
         'info.uspme@gmail.com',
-        ['info.uspme@gmail.com'],
+        [myuser.email],
         fail_silently=False,
         )
 
@@ -110,7 +110,7 @@ def signup(request) :
         'Welcome to UEPME',
         f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
         'info.uspme@gmail.com',
-        ['info.uspme@gmail.com'],
+        [myuser.email],
         fail_silently=False,
         )
         #subject = "Welcome to UEPME\n"
