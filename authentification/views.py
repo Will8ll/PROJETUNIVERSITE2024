@@ -67,7 +67,7 @@ def signup(request) :
             messages.error(request, "email alreay registered! Please try some other username")
             return redirect ('home')  
         
-        if len(username)>10:
+        if len(username)>15:
             messages.error(request, "username must be under 10 character")
             return redirect ('home')  
         
@@ -87,7 +87,7 @@ def signup(request) :
         messages.success(request, "your account has been created")
 
         #Welcome email
-        subject = "Welcome to UEPME "
+        subject = "Welcome to UEPME \n"
         message = "Hello "+ myuser.first_name + "!! \n"+"Welcome to UEPME !! \n Thank you for visiting our website \n Please confirm your email account with this link\n Thank you in behalf of the Team\n#TEAM UEPME"
         from_email = settings.EMAIL_HOST_USER
         to_list = [myuser.email]
@@ -98,7 +98,7 @@ def signup(request) :
         activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
 
         # Send welcome email with activation link
-        subject = "Welcome to UEPME"
+        subject = "Welcome to UEPME\n"
         message = render_to_string('authentification/welcome_email.html', {
             'user': myuser,
             'activation_link': activation_link,
