@@ -29,7 +29,7 @@
     <!-- ashley scss -->
     <link rel="stylesheet" href="{% static '/index/css/style.css'%}" />
     <!-- page name -->
-    <title>Connection | UEPME</title>
+    <title>Inscription Reussie Avec Succes | UEPME</title>
     <link
       rel="icon"
       type="image/x-icon"
@@ -183,7 +183,7 @@
                 <div class="row justify-content-between">
                   <div class="col-lg-4 mil-mb-60">
                     <h6 class="mil-muted mil-mb-30">
-                      <a href="#">Inscris-toi maintenant!</a>
+                      <a href=" {% url 'signup' %}">Inscris-toi maintenant!</a>
                     </h6>
 
                     <p class="mil-light-soft mil-up">
@@ -426,7 +426,7 @@
     <script>
       // Redirect to another page after 5 seconds (5000 milliseconds)
       setTimeout(function() {
-          window.location.href = 'signin '; // Replace 'http://example.com/' with the URL you want to redirect to
+          window.location.href = 'signin'; // Replace 'http://example.com/' with the URL you want to redirect to
       }, 5000); // Change 5000 to the desired delay in milliseconds
   </script>
   </body>
