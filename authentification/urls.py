@@ -12,7 +12,6 @@ urlpatterns = [
     path('signupok', views.signupok , name="signupok"),
     path('signupf', views.signupok , name="signupf"),
     path('signin', views.signin , name="signin"),
-    path('signinok', views.signinok , name="signinok"),
     path('signinf', views.signinok , name="signinf"),
     path('signout', views.signout , name="signout"),
     path('thankyou', views.thankyou , name="thankyou"),
