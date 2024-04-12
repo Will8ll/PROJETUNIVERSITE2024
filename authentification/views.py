@@ -224,7 +224,6 @@ def custom_bad_request(request, exception):
     return render(request, 'authentification/404.html', status=400)
 
 
-#suscriber newsletter views
 def subscribe(request):
     if request.method == 'POST':
         form = SubscriberForm(request.POST)
@@ -232,17 +231,18 @@ def subscribe(request):
             form.save()
             # Send confirmation email
             send_mail(
-                f'Bienvenue dans notre Newsletter \n ',
-                'Merci de souscrire a notre newsletter.\n#TEAM UEPME\n',
+                f'Bienvenue dans notre Newsletter \n Merci de souscrire a notre newsletter.\n#TEAM UEPME',
                 'info.uspme@gmail.com',  # Sender's email address
                 [form.cleaned_data['email']],  # Subscriber's email address
                 fail_silently=False,
             )
-            # Add logic to send confirmation email (step 5)
             return redirect('subscribe_success')
     else:
         form = SubscriberForm()
-        return render(request, 'authentification/index.html', {'form': form})
+
+    # If the form is not valid or it's a GET request, render the form
+    return render(request, 'authentification/index.html', {'form': form})
+
 
 def subscribe_success(request):
     return render(request, 'authentification/subscribe_success.html')
