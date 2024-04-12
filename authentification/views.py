@@ -40,7 +40,7 @@ def signin(request) :
         if user is not None:
             login(request,user)
             fname = user.first_name
-            return render (request,"authentification/signinok.html" , {'fname': fname})
+            return render (request,"authentification/index.html" , {'fname': fname})
         
         else :
             messages.error(request,"bad credential")
@@ -232,7 +232,8 @@ def subscribe(request):
             form.save()
             # Send confirmation email
             send_mail(
-                f'Bienvenue dans notre Newsletter \n Merci de souscrire a notre newsletter.\n#TEAM UEPME',
+                f'Bienvenue dans notre Newsletter \n ',
+                'Merci de souscrire a notre newsletter.\n#TEAM UEPME\n',
                 'info.uspme@gmail.com',  # Sender's email address
                 [form.cleaned_data['email']],  # Subscriber's email address
                 fail_silently=False,
