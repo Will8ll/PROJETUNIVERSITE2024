@@ -911,6 +911,7 @@ backgrounds
 ------------------------------------------- */
 .mil-dark-bg {
   position: relative;
+  background-color: #ee0707; /* Change this to the desired color */
 }
 
 .mil-dark-bg:before {
@@ -920,8 +921,9 @@ backgrounds
   position: absolute;
   pointer-events: none;
   z-index: 2;
-  -webkit-backdrop-filter: invert(100%);
-  backdrop-filter: invert(100%);
+  /* Remove the backdrop filter */
+  /* -webkit-backdrop-filter: invert(100%); */
+  /* backdrop-filter: invert(100%); */
 }
 
 .mil-dark-bg .mi-invert-fix {
@@ -934,6 +936,7 @@ backgrounds
 .mil-dark-bg .mi-invert-fix .container {
   pointer-events: all;
 }
+
 
 .mil-soft-bg {
   background-color: rgb(242, 242, 242);
@@ -1372,7 +1375,7 @@ frame
 @media screen and (max-width: 1200px) {
   .mil-frame .mil-frame-top {
     height: 90px;
-    background-color: rgba(204, 55, 55, 0.95);
+    background-color: rgba(0, 0, 0, 0.95);
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     padding: 0 30px;
     -webkit-backdrop-filter: blur(8px);
@@ -1444,7 +1447,6 @@ frame
   pointer-events: all;
   color: rgb(0, 0, 0);
 }
-
 
 /* -------------------------------------------
 
