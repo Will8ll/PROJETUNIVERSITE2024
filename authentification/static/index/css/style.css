@@ -1372,7 +1372,7 @@ frame
 @media screen and (max-width: 1200px) {
   .mil-frame .mil-frame-top {
     height: 90px;
-    background-color: rgba(0, 0, 0, 0.95);
+    background-color: rgba(204, 55, 55, 0.95);
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
     padding: 0 30px;
     -webkit-backdrop-filter: blur(8px);
@@ -1444,10 +1444,7 @@ frame
   pointer-events: all;
   color: rgb(0, 0, 0);
 }
-.mil-logo img {
-  width: 100px;  /* Adjust the width as needed */
-  height: auto;  /* Maintain aspect ratio */
-}
+
 
 /* -------------------------------------------
 
