@@ -911,7 +911,6 @@ backgrounds
 ------------------------------------------- */
 .mil-dark-bg {
   position: relative;
-  background-color: #ee0707; /* Change this to the desired color */
 }
 
 .mil-dark-bg:before {
@@ -921,9 +920,8 @@ backgrounds
   position: absolute;
   pointer-events: none;
   z-index: 2;
-  /* Remove the backdrop filter */
-  /* -webkit-backdrop-filter: invert(100%); */
-  /* backdrop-filter: invert(100%); */
+  -webkit-backdrop-filter: invert(100%);
+  backdrop-filter: invert(100%);
 }
 
 .mil-dark-bg .mi-invert-fix {
@@ -936,7 +934,6 @@ backgrounds
 .mil-dark-bg .mi-invert-fix .container {
   pointer-events: all;
 }
-
 
 .mil-soft-bg {
   background-color: rgb(242, 242, 242);
