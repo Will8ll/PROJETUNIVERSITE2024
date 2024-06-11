@@ -906,14 +906,19 @@ breadcrumbs
 
 /* -------------------------------------------
 
-backgrounds
-
+/* -------------------------------------------
+Background Image Class
 ------------------------------------------- */
-.mil-dark-bg {
-  position: relative;
+.mil-bg-image {
+  background-image: url('authentification/static/index/img/photo/Background Bleu 2.jpg'); /* Replace with your image path */
+  background-size: cover; /* Adjust size to cover the entire container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  position: relative; /* Maintain relative positioning */
 }
 
-.mil-dark-bg:before {
+/* Optionally, combine with existing styles */
+.mil-dark-bg.mil-bg-image:before {
   content: "";
   width: 100%;
   height: 100%;
@@ -924,22 +929,17 @@ backgrounds
   backdrop-filter: invert(100%);
 }
 
-.mil-dark-bg .mi-invert-fix {
+.mil-dark-bg.mil-bg-image .mi-invert-fix {
   height: 100%;
   position: relative;
   pointer-events: none;
   z-index: 3;
 }
 
-.mil-dark-bg .mi-invert-fix .container {
+.mil-dark-bg.mil-bg-image .mi-invert-fix .container {
   pointer-events: all;
 }
 
-.mil-soft-bg {
-  background-color: rgb(242, 242, 242);
-}
-
-/* -------------------------------------------
 
 spaces
 
