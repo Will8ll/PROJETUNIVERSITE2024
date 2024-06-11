@@ -1444,6 +1444,10 @@ frame
   pointer-events: all;
   color: rgb(0, 0, 0);
 }
+.mil-logo img {
+  width: 100px;  /* Adjust the width as needed */
+  height: auto;  /* Maintain aspect ratio */
+}
 
 /* -------------------------------------------
 
