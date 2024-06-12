@@ -924,8 +924,8 @@ Dark Background Class with Blue Background
   position: absolute;
   pointer-events: none;
   z-index: 2;
-  -webkit-backdrop-filter: invert(100%);
-  backdrop-filter: invert(100%);
+  /*-webkit-backdrop-filter: invert(100%);
+  backdrop-filter: invert(100%);*/
 }
 
 .mil-dark-bg .mi-invert-fix {
