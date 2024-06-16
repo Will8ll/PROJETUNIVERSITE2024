@@ -1194,7 +1194,7 @@ preloader
   position: absolute;
   opacity: 0;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color:  rgb(5, 152, 206);
 }
 
 .mil-preloader.mil-hidden {
