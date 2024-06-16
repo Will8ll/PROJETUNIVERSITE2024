@@ -912,10 +912,6 @@ backgrounds
 .mil-dark-bg {
   position: relative;
   background-color: #003f7f;
-  background-image: url('authentification/static/index/img/photo/BB.jpg'); /* Replace with the actual path to your image */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center; /* Optional: to center the image */
 }
 
 .mil-dark-bg .mi-invert-fix {
