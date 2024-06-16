@@ -1147,7 +1147,7 @@ preloader
   opacity: 0;
   position: relative;
   height: 100vh;
-  color: rgb(255, 255, 255);
+  color: rgb(5, 152, 206);
 }
 
 .mil-preloader .mil-preloader-animation .mil-pos-abs {
