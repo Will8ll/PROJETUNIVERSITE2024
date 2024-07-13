@@ -72,27 +72,11 @@
               <div class="col-xl-5">
                 <nav class="mil-main-menu" id="swupMenu">
                   <ul>
-                    {% if user.is_authenticated %}
                     <li class="mil-has-children">
-                      <a href="{% url 'signout' %}">Deconnexion</a>
-                      <!-- <ul>
-                    <li><a href="index.html">Landing page</a></li>
-                    <li><a href="home-2.html">Personal</a></li>
-                    <li><a href="portfolio-3.html">Portfolio slider</a></li>
-                  </ul>-->
+                      <a href="{% url 'portfolio' %}">Inscription</a>
                     </li>
-                    {% else %}
                     <li class="mil-has-children">
-                      <a href="{% url 'signin' %}">Connection</a>
-                      <!-- <ul>
-                    <li><a href="index.html">Landing page</a></li>
-                    <li><a href="home-2.html">Personal</a></li>
-                    <li><a href="portfolio-3.html">Portfolio slider</a></li>
-                  </ul>-->
-                    </li>
-                    {% endif %}
-                    <li class="mil-has-children">
-                      <a href="{% url 'portfolio' %}">Notre gallerie</a>
+                      <a href="{% url 'portfolio' %}">Notre galerie</a>
                     </li>
                     <li class="mil-has-children">
                       <a href="{% url 'service' %}">Nos Objectifs</a>
@@ -179,7 +163,7 @@
                     <div class="row justify-content-between">
                       <div class="col-lg-4 mil-mb-60">
                         <h6 class="mil-muted mil-mb-30">
-                          <a href=" {% url 'signup' %}"
+                          <a href="{% url 'signup' %}"
                             >Inscris-toi maintenant!</a
                           >
                         </h6>
