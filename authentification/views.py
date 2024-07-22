@@ -28,17 +28,72 @@ from google_auth_oauthlib.flow import Flow
 def home(request):
     return render(request, 'authentification/index.html')
 
-def inscription(request):
+def signupok(request):
+    return render(request, 'authentification/signupok.html')
+
+def signinok(request):
+    return render(request, 'authentification/signinok.html')
+def signupf(request):
+    return render(request, 'authentification/signupf.html')
+def signinf(request):
+    return render(request, 'authentification/signinf.html')
+
+def signout(request) : 
+    logout(request)
+    messages.success(request,"logout succesufully")
+    return redirect('home')
+
+def signin(request) : 
     if request.method == "POST":
+        username = request.POST.get('username')
+        pass1 = request.POST.get('pass1')
+
+        user = authenticate(request, username=username , password=pass1)
+
+        if user is not None:
+            login(request,user)
+            fname = user.first_name
+            return render (request,"authentification/index.html" , {'fname': fname})
+        
+        else :
+            messages.error(request,"bad credential")
+            return redirect('signinf')
+
+
+    return render(request,'authentification/signin.html')
+
+
+
+def signup(request) : 
+    if request.method == "POST":
+        username = request.POST.get('username')
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
         email = request.POST.get('email')
+        pass1 = request.POST.get('pass1')
+        pass2 = request.POST.get('pass2')
+
+        if User.objects.filter(username=username):
+            messages.error(request, "Username alreay exist! Please try some other username")
+            return redirect ('signupf')
         
         if User.objects.filter(email=email):
             messages.error(request, "email alreay registered! Please try some other username")
             return redirect ('signupf')  
         
-        myuser = User.objects.create_user(fname,lname,email)
+        if len(username)>15:
+            messages.error(request, "username must be under 10 character")
+            return redirect ('signupf')  
+        
+        if pass1 != pass2 :
+            messages.error(request, "password did not match")
+            return redirect ('signupf') 
+
+        if not username.isalnum() :
+            messages.error(request, "username should be alphanumeric")
+            return redirect ('signupf')  
+        
+        myuser = User.objects.create_user(username,email,pass1)
         myuser.first_name=fname
         myuser.last_name=lname
         myuser.is_active=True
@@ -48,20 +103,58 @@ def inscription(request):
         #Welcome email
         send_mail(
         'Welcome to UEPME',
-        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for registering for UEPME 2024.\nThank you on behalf of the Team.\n#TEAM UEPME',
+        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
         'info.uspme@gmail.com',
         [myuser.email],
         fail_silently=False,
         )
+
+        #subject = "Welcome to UEPME \n"
+        #message = "Hello "+ myuser.first_name + "!! \n"+"Welcome to UEPME !! \n Thank you for visiting our website \n Please confirm your email account with this link\n Thank you in behalf of the Team\n#TEAM UEPME"
+        #from_email = settings.EMAIL_HOST_USER
+        #to_list = [myuser.email]
+        #send_mail(subject,message,from_email,to_list,fail_silently=True) 
+
+        #token = default_token_generator.make_token(myuser)
+        #uid = urlsafe_base64_encode(force_bytes(myuser.pk))
+        #activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
+        
+        # Send welcome email with activation link
+        #send_mail(
+        #'Welcome to UEPME',
+        #f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
+        #'info.uspme@gmail.com',
+        #[myuser.email],
+        #fail_silently=False,
+        #)
+        #subject = "Welcome to UEPME\n"
+        #message = render_to_string('authentification/welcome_email.html', {
+       #    'user': myuser,
+        #    'activation_link': activation_link,
+       # })
+       #from_email = settings.EMAIL_HOST_USER
+       #to_list = [myuser.email]
+       #send_mail(subject, message, from_email, to_list, fail_silently=True)
+
         return redirect('signupok')
-    return render(request, '/authentification/Inscription.html')
+    
+    return render(request,'authentification/signup.html')
 
-def Insf(request):
-    return render(request, 'authentification/signupf.html')
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
 
-
-def signupok(request):
-    return render(request, 'authentification/signupok.html')
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        messages.success(request, 'Your account has been activated successfully. You can now log in.')
+        return redirect('home')  # Redirect to the login page after successful activation
+    else:
+        messages.error(request, 'Invalid activation link. Please try again or contact support.')
+        return redirect('home')  # Redirect to the home page if activation fails
 
 
 def team(request):
@@ -282,127 +375,3 @@ def credentials_to_dict(credentials):
 
 
 
-#def signinok(request):
-    return render(request, 'authentification/signinok.html')
-#def signupf(request):
-    return render(request, 'authentification/signupf.html')
-#def signinf(request):
-    return render(request, 'authentification/signinf.html')
-
-#def signout(request) : 
-    logout(request)
-    messages.success(request,"logout succesufully")
-    return redirect('home')
-
-#def signin(request) : 
-    if request.method == "POST":
-        username = request.POST.get('username')
-        pass1 = request.POST.get('pass1')
-
-        user = authenticate(request, username=username , password=pass1)
-
-        if user is not None:
-            login(request,user)
-            fname = user.first_name
-            return render (request,"authentification/index.html" , {'fname': fname})
-        
-        else :
-            messages.error(request,"bad credential")
-            return redirect('signinf')
-
-
-    return render(request,'authentification/signin.html')
-
-
-
-#def signup(request) : 
-    if request.method == "POST":
-        username = request.POST.get('username')
-        fname = request.POST.get('fname')
-        lname = request.POST.get('lname')
-        email = request.POST.get('email')
-        pass1 = request.POST.get('pass1')
-        pass2 = request.POST.get('pass2')
-
-        if User.objects.filter(username=username):
-            messages.error(request, "Username alreay exist! Please try some other username")
-            return redirect ('signupf')
-        
-        if User.objects.filter(email=email):
-            messages.error(request, "email alreay registered! Please try some other username")
-            return redirect ('signupf')  
-        
-        if len(username)>15:
-            messages.error(request, "username must be under 10 character")
-            return redirect ('signupf')  
-        
-        if pass1 != pass2 :
-            messages.error(request, "password did not match")
-            return redirect ('signupf') 
-
-        if not username.isalnum() :
-            messages.error(request, "username should be alphanumeric")
-            return redirect ('signupf')  
-        
-        myuser = User.objects.create_user(username,email,pass1)
-        myuser.first_name=fname
-        myuser.last_name=lname
-        myuser.is_active=True
-        myuser.save()
-        messages.success(request, "your account has been created")
-
-        #Welcome email
-        send_mail(
-        'Welcome to UEPME',
-        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
-        'info.uspme@gmail.com',
-        [myuser.email],
-        fail_silently=False,
-        )
-
-        #subject = "Welcome to UEPME \n"
-        #message = "Hello "+ myuser.first_name + "!! \n"+"Welcome to UEPME !! \n Thank you for visiting our website \n Please confirm your email account with this link\n Thank you in behalf of the Team\n#TEAM UEPME"
-        #from_email = settings.EMAIL_HOST_USER
-        #to_list = [myuser.email]
-        #send_mail(subject,message,from_email,to_list,fail_silently=True) 
-
-        #token = default_token_generator.make_token(myuser)
-        #uid = urlsafe_base64_encode(force_bytes(myuser.pk))
-        #activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
-        
-        # Send welcome email with activation link
-        #send_mail(
-        #'Welcome to UEPME',
-        #f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
-        #'info.uspme@gmail.com',
-        #[myuser.email],
-        #fail_silently=False,
-        #)
-        #subject = "Welcome to UEPME\n"
-        #message = render_to_string('authentification/welcome_email.html', {
-       #    'user': myuser,
-        #    'activation_link': activation_link,
-       # })
-       #from_email = settings.EMAIL_HOST_USER
-       #to_list = [myuser.email]
-       #send_mail(subject, message, from_email, to_list, fail_silently=True)
-
-        return redirect('signupok')
-    
-    return render(request,'authentification/signup.html')
-
-#def activate(request, uidb64, token):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        messages.success(request, 'Your account has been activated successfully. You can now log in.')
-        return redirect('home')  # Redirect to the login page after successful activation
-    else:
-        messages.error(request, 'Invalid activation link. Please try again or contact support.')
-        return redirect('home')  # Redirect to the home page if activation fails
