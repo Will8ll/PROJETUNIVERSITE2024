@@ -60,7 +60,7 @@ urlpatterns = [
     path("Geoinsta", RedirectView.as_view(url='https://www.instagram.com/geoffroy_ndri/') , name="Geoinsta"),
     path("Geolinkedin", RedirectView.as_view(url='https://ci.linkedin.com/in/geoffroy-n-dri-848285200?trk=public_post-text&original_referer=https%3A%2F%2Ffr.linkedin.com%2F') , name="Geolinkedin"),
 
-    path("Slinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/sa%C3%AFdou-moctar-d-929019199/') , name="Slinkedin"),
+    path("Slinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/sa%C3%AFdou-moctar-d-929019199/'), name="Slinkedin"),
 
     path("Clinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/camille-ete-031aa01a2/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app') , name="Clinkedin"),
 
