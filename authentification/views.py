@@ -115,11 +115,11 @@ def signup(request) :
         #to_list = [myuser.email]
         #send_mail(subject,message,from_email,to_list,fail_silently=True) 
 
-        #token = default_token_generator.make_token(myuser)
-        #uid = urlsafe_base64_encode(force_bytes(myuser.pk))
-        #activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
+        token = default_token_generator.make_token(myuser)
+        uid = urlsafe_base64_encode(force_bytes(myuser.pk))
+        activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
         
-        # Send welcome email with activation link
+         Send welcome email with activation link
         #send_mail(
         #'Welcome to UEPME',
         #f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
