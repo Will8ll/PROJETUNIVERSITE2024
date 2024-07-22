@@ -28,20 +28,7 @@ from google_auth_oauthlib.flow import Flow
 def home(request):
     return render(request, 'authentification/index.html')
 
-def signupok(request):
-    return render(request, 'authentification/signupok.html')
 
-def signinok(request):
-    return render(request, 'authentification/signinok.html')
-def signupf(request):
-    return render(request, 'authentification/signupf.html')
-def signinf(request):
-    return render(request, 'authentification/signinf.html')
-
-def signout(request) : 
-    logout(request)
-    messages.success(request,"logout succesufully")
-    return redirect('home')
 
 def signin(request) : 
     if request.method == "POST":
@@ -119,17 +106,17 @@ def signup(request) :
         uid = urlsafe_base64_encode(force_bytes(myuser.pk))
         activation_link = request.build_absolute_uri(reverse('activate', kwargs={'uidb64': uid, 'token': token}))
         
-        #Send welcome email with activation link
-        send_mail(
-        'Welcome to UEPME',
-        f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
-        'info.uspme@gmail.com',
-        [myuser.email],
-        fail_silently=False,
-        )
+        # Send welcome email with activation link
+        #send_mail(
+        #'Welcome to UEPME',
+        #f'Hello {myuser.first_name}!!\nWelcome to UEPME!!\nThank you for visiting our website.\nPlease confirm your email account with this link.\nThank you on behalf of the Team.\n#TEAM UEPME',
+        #'info.uspme@gmail.com',
+        #[myuser.email],
+        #fail_silently=False,
+        #)
         subject = "Welcome to UEPME\n"
         message = render_to_string('authentification/welcome_email.html', {
-           'user': myuser,
+            'user': myuser,
             'activation_link': activation_link,
         })
         from_email = settings.EMAIL_HOST_USER
@@ -155,6 +142,23 @@ def activate(request, uidb64, token):
     else:
         messages.error(request, 'Invalid activation link. Please try again or contact support.')
         return redirect('home')  # Redirect to the home page if activation fails
+
+
+
+def signout(request) : 
+    logout(request)
+    messages.success(request,"logout succesufully")
+    return redirect('home')
+
+def signupok(request):
+    return render(request, 'authentification/signupok.html')
+def signinok(request):
+    return render(request, 'authentification/signinok.html')
+def signupf(request):
+    return render(request, 'authentification/signupf.html')
+def signinf(request):
+    return render(request, 'authentification/signinf.html')
+
 
 
 def team(request):
@@ -370,8 +374,3 @@ def credentials_to_dict(credentials):
         'client_secret': credentials.client_secret,
         'scopes': credentials.scopes
     }
-
-
-
-
-
