@@ -21,14 +21,37 @@ import os
 from django.core.exceptions import ValidationError
 from google_auth_oauthlib.flow import Flow
 
-
+from .forms import RegistrationForm
 
 # Create your views here.
 
 def home(request):
     return render(request, 'authentification/index.html')
 
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            # Enregistrer les données dans la base de données
+            registration = form.save()
 
+            # Envoyer un email de confirmation
+            send_mail(
+                'Confirmation d\'inscription',
+                'Merci de vous être inscrit à la conférence ! Nous avons hâte de vous y voir.',
+                settings.DEFAULT_FROM_EMAIL,
+                [registration.email],
+                fail_silently=False,
+            )
+
+            return redirect('registration_success')
+    else:
+        form = RegistrationForm()
+    
+    return render(request, 'conference/register.html', {'form': form})
+
+def registration_success(request):
+    return render(request, 'conference/registration_success.html')
 
 def signin(request) : 
     if request.method == "POST":
