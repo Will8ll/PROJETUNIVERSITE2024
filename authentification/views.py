@@ -22,13 +22,15 @@ from django.core.exceptions import ValidationError
 from google_auth_oauthlib.flow import Flow
 
 from .forms import RegistrationForm
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 # Create your views here.
 
 def home(request):
     return render(request, 'authentification/index.html')
 
-def register(request):
+#def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -43,6 +45,31 @@ def register(request):
                 [registration.email],
                 fail_silently=False,
             )
+
+            return redirect('registration_success')
+    else:
+        form = RegistrationForm()
+    
+    return render(request, 'authentification/register.html', {'form': form})
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            # Enregistrer les données dans la base de données
+            registration = form.save()
+
+            # Charger le template HTML
+            html_content = render_to_string('authentification/email_template.html', {'registration': registration})
+
+            # Créer l'email
+            subject = 'Confirmation d\'inscription à l\'Université d\'Été des PME 2024'
+            from_email = settings.DEFAULT_FROM_EMAIL
+            to_email = [registration.email]
+
+            msg = EmailMultiAlternatives(subject, '', from_email, to_email)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
 
             return redirect('registration_success')
     else:
