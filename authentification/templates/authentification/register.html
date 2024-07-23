@@ -224,38 +224,31 @@
               <h3 class="mil-center mil-up mil-mb-120">
                 Inscris <span class="mil-thin">Toi maintenant !</span>
               </h3>
-              <form class="row align-items-center" action="#" method="POST">
+              <form
+                class="row align-items-center"
+                action="{% url 'register' %}"
+                method="POST"
+              >
                 {% csrf_token %}
                 <div class="col-lg-6 mil-up">
                   <input
                     type="text"
-                    name="username"
-                    placeholder="Username"
+                    name="first_name"
+                    placeholder="Prénom"
                     required
                   />
                 </div>
                 <div class="col-lg-6 mil-up">
                   <input
                     type="text"
-                    id="lname"
-                    name="lname"
+                    name="last_name"
                     placeholder="Nom"
                     required
                   />
                 </div>
                 <div class="col-lg-6 mil-up">
                   <input
-                    type="text"
-                    id="fname"
-                    name="fname"
-                    placeholder="Prenom"
-                    required
-                  />
-                </div>
-                <div class="col-lg-6 mil-up">
-                  <input
                     type="email"
-                    id="email"
                     name="email"
                     placeholder="Email"
                     required
@@ -263,22 +256,13 @@
                 </div>
                 <div class="col-lg-6 mil-up">
                   <input
-                    type="password"
-                    id="pass1"
-                    name="pass1"
-                    placeholder="Mot de passe"
+                    type="text"
+                    name="contact_number"
+                    placeholder="Numéro de contact"
                     required
                   />
                 </div>
-                <div class="col-lg-6 mil-up">
-                  <input
-                    type="password"
-                    id="pass2"
-                    name="pass2"
-                    placeholder="Confirmer le mot de passe"
-                    required
-                  />
-                </div>
+
                 <div class="col-lg-8">
                   <p class="mil-up mil-mb-30">
                     <span class="mil-accent">*</span> Nous promettons de ne pas
@@ -310,44 +294,6 @@
                     <p class="mil-light-soft mil-up mil-mb-30">
                       Abonnez-vous à notre newsletter:
                     </p>
-
-                    <form
-                      class="mil-subscribe-form mil-up"
-                      method="POST"
-                      action="{% url 'register' %}"
-                    >
-                      {% csrf_token %}
-                      <input
-                        type="text"
-                        name="first_name"
-                        placeholder="Prénom"
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="last_name"
-                        placeholder="Nom"
-                        required
-                      />
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="contact_number"
-                        placeholder="Numéro de contact"
-                        required
-                      />
-                      <button
-                        type="submit"
-                        class="mil-button mil-icon-button-sm mil-arrow-place"
-                      >
-                        S'inscrire
-                      </button>
-                    </form>
                   </div>
                   <div class="col-md-7 col-lg-6">
                     <div class="row justify-content-end">
