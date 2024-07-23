@@ -8,8 +8,8 @@ from google_auth_oauthlib.flow import Flow
 
 urlpatterns = [
     path('', views.home , name="home"),
-    path('register/', views.register, name='register'),
-    path('registration_success/', views.registration_success, name='registration_success'),
+    path('register', views.register, name='register'),
+    path('registration_success', views.registration_success, name='registration_success'),
     path('signup',views.signup , name="signup"),
     path('signupok', views.signupok , name="signupok"),
     path('signupf', views.signupok , name="signupf"),

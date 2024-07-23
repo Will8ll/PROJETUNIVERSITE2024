@@ -48,10 +48,10 @@ def register(request):
     else:
         form = RegistrationForm()
     
-    return render(request, 'conference/register.html', {'form': form})
+    return render(request, 'authentification/register.html', {'form': form})
 
 def registration_success(request):
-    return render(request, 'conference/registration_success.html')
+    return render(request, 'authentification/registration_success.html')
 
 def signin(request) : 
     if request.method == "POST":
