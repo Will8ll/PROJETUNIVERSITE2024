@@ -68,13 +68,13 @@ urlpatterns = [
 
     path("Ylinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/yasmine-sarr-b8aa401bb/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app') , name="Ylinkedin"),
 
-    path("Christlinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/yasmine-sarr-b8aa401bb/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app') , name="Christlinkedin"),
+    path("Christlinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/christian-bailly-46a47b10b/') , name="Christlinkedin"),
 
     path("Erlinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/ernest-tohouri-3b598785/') , name="Erlinkedin"),
 
     path("Klinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/korotoum-kone-7512281aa/?trk=public_profile_browsemap&originalSubdomain=ci') , name="Klinkedin"),
 
-    path("Alinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/yasmine-sarr-b8aa401bb/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app') , name="Alinkedin"),
+    path("Alinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/aziz-ouattara-4b52651bb/') , name="Alinkedin"),
 
      path("Blinkedin", RedirectView.as_view(url='https://www.linkedin.com/in/bassoun/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app') , name="Blinkedin"),
 
