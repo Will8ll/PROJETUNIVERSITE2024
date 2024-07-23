@@ -114,7 +114,7 @@ WSGI_APPLICATION = 'UEPME.wsgi.application'
  #   'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
 #}
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+     'default': dj_database_url.parse('postgres://ojzgdwrliofkom:5d231cc51f3dff34bf3b62f3868e48f171bc482916367b55298d833915e241fc@ec2-3-233-79-30.compute-1.amazonaws.com:5432/db5t3uqbirj4fb')
 }
 django_heroku.settings(locals())
 
