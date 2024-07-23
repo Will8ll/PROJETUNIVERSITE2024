@@ -75,7 +75,7 @@ def register(request):
     else:
         form = RegistrationForm()
     
-    return render(request, 'authentification/index.html', {'form': form})
+    return render(request, 'authentification/register.html', {'form': form})
 
 def registration_success(request):
     return render(request, 'authentification/registration_success.html')
