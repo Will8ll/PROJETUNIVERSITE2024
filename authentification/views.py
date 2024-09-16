@@ -306,6 +306,9 @@ def portfolio(request):
 def project(request):
     return render(request, 'authentification/project.html')
 
+def project_1(request):
+    return render(request, 'authentification/project_1.html')
+
 def article(request):
     return render(request, 'authentification/blog.html')
 

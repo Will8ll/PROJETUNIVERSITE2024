@@ -34,6 +34,7 @@ urlpatterns = [
     path('service', views.service, name='service'),
     path('portfolio', views.portfolio, name='portfolio'),
     path('project', views.project, name='project'),
+    path('project_1', views.project_1, name='project_1'),
     path('article', views.article, name='article'),
     path('publication1', views.publication1, name='publication1'),
     path('publication2', views.publication2, name='publication2'),
